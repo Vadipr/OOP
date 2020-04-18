@@ -4,6 +4,9 @@ red
 rectangle
 blue
 2 5 6 3
+triangle
+sapphire
+1 1 2 5 3 1
 circle
 yellow
 2 1 0.1

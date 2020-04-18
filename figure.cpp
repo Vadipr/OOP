@@ -48,8 +48,6 @@ namespace figure_space {
 
     // Выводит уникальные свойства объекта
     void figure_circle::write(std::ofstream &ofstr) {
-        // Вывод номера и цвета
-        ofstr << color_strings[get_color()] << " ";
         ofstr << "circle: ";
         ofstr << "x0 = " << center_x << "; ";
         ofstr << "y0 = " << center_y << "; ";
@@ -58,8 +56,6 @@ namespace figure_space {
 
     // Выводит уникальные свойства объекта
     void figure_rectangle::write(std::ofstream &ofstr) {
-        // Вывод номера и цвета
-        ofstr << color_strings[get_color()] << " ";
         ofstr << "rectangle: ";
         ofstr << "x1 = " << bottom_x << "; ";
         ofstr << "y1 = " << bottom_y << "; ";
@@ -77,7 +73,7 @@ namespace figure_space {
         for(figure *it = begin; it != nullptr; it = it->get_next()) {
             index++;
             // Вывод номера и цвета
-            ofstr << index << ". ";
+            ofstr << index << ". " << color_strings[it->get_color()] << " ";
             it->write(ofstr);
         }
         std::cout << "Successfully printed to file." << std::endl;
@@ -94,6 +90,8 @@ namespace figure_space {
             res = new figure_circle;
         } else if (readLine == "rectangle") { // Если вводится прямоугольник
             res = new figure_rectangle;
+        } else if (readLine == "triangle") { // Если вводится прямоугольник
+            res = new figure_triangle;
         } else {
             return nullptr; // Произошла ошибка при вводе
         }
@@ -158,5 +156,30 @@ namespace figure_space {
 
     void figure::set_color(Color _color) {
         figure_color = _color;
+    }
+
+    void figure_triangle::read(std::ifstream &ifstr) {
+        int _x1, _y1;
+        int _x2, _y2;
+        int _x3, _y3;
+        ifstr >> _x1 >> _y1;
+        ifstr >> _x2 >> _y2;
+        ifstr >> _x3 >> _y3;
+        x1 = _x1; y1 = _y1;
+        x2 = _x2; y2 = _y2;
+        x3 = _x3; y3 = _y3;
+        if(!ifstr.eof()) { // Считаем переход на новую строку
+            ifstr.get();
+        }
+    }
+
+    void figure_triangle::write(std::ofstream &ofstr) {
+        ofstr << "triangle: ";
+        ofstr << "x1 = " << x1 << "; ";
+        ofstr << "y1 = " << y1 << "; ";
+        ofstr << "x2 = " << x2 << "; ";
+        ofstr << "y2 = " << y2 << "; ";
+        ofstr << "x3 = " << x3 << "; ";
+        ofstr << "y3 = " << y3 << ";\n";
     }
 }

@@ -25,7 +25,8 @@ namespace figure_space {
     // Перечисляемый тип, определяющий тип фигуры
     enum eFigure {
         CIRCLE = 1,
-        RECTANGLE = 2
+        RECTANGLE = 2,
+        TRIANGLE = 3
     };
 
     // Структура, объединяющая все виды фигур
@@ -81,6 +82,19 @@ namespace figure_space {
         // Координаты нижнего правого угла (целочисленные)
         int bottom_x;
         int bottom_y;
+    };
+
+    // Структура, описывающая треугольник
+    class figure_triangle : public figure {
+    public:
+        // Переопределяем методы предка
+        void read(std::ifstream &ifstr) override;
+        void write(std::ofstream &ofstr) override;
+    private:
+        // Три точки, задающие целочисленные координаты вершин
+        int x1, y1;
+        int x2, y2;
+        int x3, y3;
     };
 
     // Контейнер на основе однонаправленного линейного списка.
