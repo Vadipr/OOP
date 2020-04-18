@@ -53,7 +53,8 @@ namespace figure_space {
         ofstr << "circle: ";
         ofstr << "x0 = " << center_x << "; ";
         ofstr << "y0 = " << center_y << "; ";
-        ofstr << "radius = " << radius << ";\n";
+        ofstr << "radius = " << radius << "; ";
+        ofstr << "density = " << get_density() << ";\n";
     }
 
     // Выводит уникальные свойства объекта
@@ -64,7 +65,8 @@ namespace figure_space {
         ofstr << "x1 = " << bottom_x << "; ";
         ofstr << "y1 = " << bottom_y << "; ";
         ofstr << "x2 = " << upper_x << "; ";
-        ofstr << "y2 = " << upper_y << ";\n";
+        ofstr << "y2 = " << upper_y << "; ";
+        ofstr << "density = " << get_density() << ";\n";
     }
 
     // Выводит данные всего контейнера
@@ -109,6 +111,10 @@ namespace figure_space {
                 return nullptr; // Произошла ошибка при вводе
             }
         }
+        // ВВОД ПЛОТНОСТИ
+        double dens;
+        ifstr >> dens;
+        res->set_density(dens);
         // ВВОД ОСТАЛЬНЫХ ХАРАКТЕРИСТИК
         res->read(ifstr);
         return res;
@@ -158,5 +164,13 @@ namespace figure_space {
 
     void figure::set_color(Color _color) {
         figure_color = _color;
+    }
+
+    double figure::get_density() {
+        return density;
+    }
+
+    void figure::set_density(double _density) {
+        density = _density;
     }
 }

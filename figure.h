@@ -45,11 +45,14 @@ namespace figure_space {
         // gets
         figure *get_next();
         Color get_color();
+        double get_density();
 
         // sets
         void set_next(figure *_next);
         void set_color(Color _color);
+        void set_density(double _density);
     private:
+        double density; // Плотность материала, из которого вырезаются эти геометрические фигуры (действительное число)
         Color figure_color; // Цвет
         figure *next = nullptr; // Следующий элемент в списке
     };
