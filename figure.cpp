@@ -50,7 +50,7 @@ namespace figure_space {
     void figure_circle::write(std::ofstream &ofstr) {
         // Вывод номера и цвета
         ofstr << color_strings[get_color()] << " ";
-        ofstr << "circle: ";
+        ofstr << "circle: (" << calculate() << ")" << ": ";
         ofstr << "x0 = " << center_x << "; ";
         ofstr << "y0 = " << center_y << "; ";
         ofstr << "radius = " << radius << ";\n";
@@ -60,7 +60,7 @@ namespace figure_space {
     void figure_rectangle::write(std::ofstream &ofstr) {
         // Вывод номера и цвета
         ofstr << color_strings[get_color()] << " ";
-        ofstr << "rectangle: ";
+        ofstr << "rectangle (" << calculate() << ")" << ": ";
         ofstr << "x1 = " << bottom_x << "; ";
         ofstr << "y1 = " << bottom_y << "; ";
         ofstr << "x2 = " << upper_x << "; ";
@@ -131,6 +131,10 @@ namespace figure_space {
         }
     }
 
+    double figure_circle::calculate() {
+        return 2*PI*radius;
+    }
+
     void figure_rectangle::read(std::ifstream &ifstr) {
         int _bottom_x, _bottom_y;
         int _upper_x, _upper_y;
@@ -142,6 +146,12 @@ namespace figure_space {
         if(!ifstr.eof()) { // Считаем переход на новую строку
             ifstr.get();
         }
+    }
+
+    double figure_rectangle::calculate() {
+        int width = bottom_x - upper_x;
+        int height = upper_y - bottom_y;
+        return std::abs(2*width) + std::abs(2*height);
     }
 
     figure *figure::get_next() {

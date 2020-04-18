@@ -9,4 +9,4 @@ yellow
 2 1 0.1
 circle
 purple
-0 0 -0.5
+0 0 0.5

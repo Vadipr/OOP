@@ -8,6 +8,8 @@
 
 namespace figure_space {
 
+    const double PI = 3.1516;
+
     // Параметры, общие для всех альтернатив:
     // Цвет фигуры (перечислимый тип)
     // {красный, оранжевый, желтый, зеленый, голубой, синий, фиолетовый}
@@ -41,6 +43,8 @@ namespace figure_space {
         virtual void read(std::ifstream &ifstr) = 0;
         // Выводит уникальные свойства объекта
         virtual void write(std::ofstream &ofstr) = 0;
+        // Вычисление периметра для каждой из фигур (действительное число)
+        virtual double calculate() = 0;
 
         // gets
         figure *get_next();
@@ -60,6 +64,7 @@ namespace figure_space {
         // Переопределяем методы предка
         void read(std::ifstream &ifstr) override;
         void write(std::ofstream &ofstr) override;
+        double calculate() override;
     private:
         // Координаты центра (целочисленные)
         int center_x;
@@ -74,6 +79,7 @@ namespace figure_space {
         // Переопределяем методы предка
         void read(std::ifstream &ifstr) override;
         void write(std::ofstream &ofstr) override;
+        double calculate() override;
     private:
         // Координаты левого верхнего угла (целочисленные)
         int upper_x;
