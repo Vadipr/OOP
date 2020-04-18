@@ -8,6 +8,8 @@
 
 namespace figure_space {
 
+    const double PI = 3.1516;
+
     // Параметры, общие для всех альтернатив:
     // Цвет фигуры (перечислимый тип)
     // {красный, оранжевый, желтый, зеленый, голубой, синий, фиолетовый}
@@ -34,24 +36,23 @@ namespace figure_space {
         // Статический метод (static) - можно вызвать без создания объекта (как функцию)
         // Считывает один объект figure и возвращает указатель на него
         static figure *read_one(std::ifstream &ifstr);
-
         // Виртуальный метод "virtual" - требует от потомков переопределения этого метода
         // Чисто виртуальный "pure virtual" (= 0) - помимо необходимости переопределения не может быть определен в предке
         // Считывает уникальные свойства в объект
         virtual void read(std::ifstream &ifstr) = 0;
         // Выводит уникальные свойства объекта
         virtual void write(std::ofstream &ofstr) = 0;
+        // Вычисление периметра для каждой из фигур (действительное число)
+        virtual double calculate() = 0;
 
         // gets
-        figure *get_next();
         Color get_color();
 
         // sets
-        void set_next(figure *_next);
         void set_color(Color _color);
+        eFigure type;
     private:
         Color figure_color; // Цвет
-        figure *next = nullptr; // Следующий элемент в списке
     };
 
     // Структура, описывающая круг
@@ -60,6 +61,7 @@ namespace figure_space {
         // Переопределяем методы предка
         void read(std::ifstream &ifstr) override;
         void write(std::ofstream &ofstr) override;
+        double calculate() override;
     private:
         // Координаты центра (целочисленные)
         int center_x;
@@ -74,6 +76,7 @@ namespace figure_space {
         // Переопределяем методы предка
         void read(std::ifstream &ifstr) override;
         void write(std::ofstream &ofstr) override;
+        double calculate() override;
     private:
         // Координаты левого верхнего угла (целочисленные)
         int upper_x;
@@ -81,6 +84,13 @@ namespace figure_space {
         // Координаты нижнего правого угла (целочисленные)
         int bottom_x;
         int bottom_y;
+    };
+
+    // Элемент контейнера
+    class container_node {
+    public:
+        figure* _f;
+        container_node *next = nullptr; // Следующий элемент в списке
     };
 
     // Контейнер на основе однонаправленного линейного списка.
@@ -92,16 +102,17 @@ namespace figure_space {
         // Очистка контейнер
         void clear();
         // Добавление элемента в контейнер
-        void append(figure *new_element);
+        void append(container_node *new_element);
         // Чтение из файла
         void read(std::ifstream &ifstr);
         // Вывод в файл
         void write(std::ofstream &ofstr);
+        void writeIgnore(std::ofstream &ofstr, eFigure type);
     private:
         // Начальный элемент
-        figure *begin;
+        container_node *begin;
         // Последний элемент
-        figure *end;
+        container_node *end;
     };
 
     /// Объявление функций:
