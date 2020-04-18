@@ -1,0 +1,12 @@
+circle
+red
+1 2 4.5
+rectangle
+blue
+2 5 6 3
+circle
+yellow
+2 1 0.1
+circle
+purple
+0 0 -0.5
