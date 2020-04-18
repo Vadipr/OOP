@@ -16,6 +16,9 @@ int main(int argc, char* argv[]) {
     figure_container c{};
     c.read(ifst);
     c.write(ofst);
+    c.sort();
+    ofst << "Sorted:" << std::endl;
+    c.write(ofst);
     cout << "Program ended"<< endl;
     return 0;
 }

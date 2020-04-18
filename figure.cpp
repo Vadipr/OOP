@@ -14,6 +14,7 @@ namespace figure_space {
     void figure_container::read(std::ifstream &ifstr) {
         // Чтение до end of file
         while (!ifstr.eof()) {
+            container_node * node = new container_node;
             // Считываем новый элемент, вызывая статический метод класса figure
             figure *new_element = figure::read_one(ifstr);
             if (new_element == nullptr) { // Если произошла ошибка при считывании
@@ -23,24 +24,26 @@ namespace figure_space {
                 return;
             }
             // Добавляем в список считанный элемент
-            append(new_element);
+            node->_f = new_element;
+            append(node);
         }
     }
 
-    void figure_container::append(figure *new_element) {
+    void figure_container::append(container_node *new_element) {
         if (begin == nullptr) { // Если список пустой
             begin = end = new_element;
         } else {
-            end->set_next(new_element); // Последний элемент хранит ссылку на новый элемент
+            end->next = new_element; // Последний элемент хранит ссылку на новый элемент
             end = new_element; // Последний элемент теперь - новый элемент
         }
-        new_element->set_next(nullptr);
+        new_element->next = nullptr;
     }
 
     void figure_container::clear() {
-        figure *it_next = nullptr; // Храним следующий элемент, т.к. будем удалять элементы в цикле
-        for (figure *it = begin; it != nullptr; it = it_next) {
-            it_next = it->get_next(); // Сохраняем следующий элемент
+        container_node *it_next = nullptr; // Храним следующий элемент, т.к. будем удалять элементы в цикле
+        for (container_node *it = begin; it != nullptr; it = it_next) {
+            delete it->_f;
+            it_next = it->next; // Сохраняем следующий элемент
             delete it; // Удаляем элемент
         }
         begin = end = nullptr;
@@ -74,11 +77,11 @@ namespace figure_space {
             ofstr << "Empty container. " << std::endl;
             return;
         }
-        for(figure *it = begin; it != nullptr; it = it->get_next()) {
+        for(container_node *it = begin; it != nullptr; it = it->next) {
             index++;
             // Вывод номера и цвета
             ofstr << index << ". ";
-            it->write(ofstr);
+            it->_f->write(ofstr);
         }
         std::cout << "Successfully printed to file." << std::endl;
     }
@@ -119,6 +122,21 @@ namespace figure_space {
         end = begin = nullptr;
     }
 
+
+
+    void figure_container::sort() {
+        for(container_node *it = begin; (it) && (it->next); it = it->next) {
+            for (container_node *jt = it->next; jt; jt = jt->next) {
+                if(figure::comparator(it->_f, jt->_f)) {
+                    figure* temp = it->_f;
+                    it->_f = jt->_f;
+                    jt->_f = temp;
+                }
+                std::cout << it->_f->calculate() << " vs " << jt->_f->calculate() << std::endl;
+            }
+        }
+    }
+
     void figure_circle::read(std::ifstream &ifstr) {
         int _center_x, _center_y;
         double _radius;
@@ -154,19 +172,15 @@ namespace figure_space {
         return std::abs(2*width) + std::abs(2*height);
     }
 
-    figure *figure::get_next() {
-        return next;
-    }
-
-    void figure::set_next(figure *_next) {
-        next = _next;
-    }
-
     Color figure::get_color() {
         return figure_color;
     }
 
     void figure::set_color(Color _color) {
         figure_color = _color;
+    }
+
+    bool figure::comparator(figure *first, figure *second) {
+        return first->calculate() < second->calculate();
     }
 }

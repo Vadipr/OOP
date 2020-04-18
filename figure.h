@@ -36,7 +36,8 @@ namespace figure_space {
         // Статический метод (static) - можно вызвать без создания объекта (как функцию)
         // Считывает один объект figure и возвращает указатель на него
         static figure *read_one(std::ifstream &ifstr);
-
+        // Компаратор для сортировки
+        static bool comparator(figure*first, figure*second);
         // Виртуальный метод "virtual" - требует от потомков переопределения этого метода
         // Чисто виртуальный "pure virtual" (= 0) - помимо необходимости переопределения не может быть определен в предке
         // Считывает уникальные свойства в объект
@@ -47,15 +48,12 @@ namespace figure_space {
         virtual double calculate() = 0;
 
         // gets
-        figure *get_next();
         Color get_color();
 
         // sets
-        void set_next(figure *_next);
         void set_color(Color _color);
     private:
         Color figure_color; // Цвет
-        figure *next = nullptr; // Следующий элемент в списке
     };
 
     // Структура, описывающая круг
@@ -89,25 +87,34 @@ namespace figure_space {
         int bottom_y;
     };
 
+    // Элемент контейнера
+    class container_node {
+    public:
+        figure* _f;
+        container_node *next = nullptr; // Следующий элемент в списке
+    };
+
     // Контейнер на основе однонаправленного линейного списка.
     // В списке находятся элементы, каждый из них (кроме последнего) имеет ссылку на следующего.
     class figure_container {
     public:
         // Конструктор контейнера
         figure_container();
+        // Сортировка
+        void sort();
         // Очистка контейнер
         void clear();
         // Добавление элемента в контейнер
-        void append(figure *new_element);
+        void append(container_node *new_element);
         // Чтение из файла
         void read(std::ifstream &ifstr);
         // Вывод в файл
         void write(std::ofstream &ofstr);
     private:
         // Начальный элемент
-        figure *begin;
+        container_node *begin;
         // Последний элемент
-        figure *end;
+        container_node *end;
     };
 
     /// Объявление функций:
