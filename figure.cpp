@@ -82,7 +82,7 @@ namespace figure_space {
         for(container_node *it = begin; it != nullptr; it = it->next) {
             index++;
             // Вывод номера и цвета
-            ofstr << index << ". ";
+            ofstr << index << ". " << color_strings[it->_f->get_color()] << " ";
             it->_f->write(ofstr);
         }
         std::cout << "Successfully printed to file." << std::endl;
@@ -101,6 +101,9 @@ namespace figure_space {
         } else if (readLine == "rectangle") { // Если вводится прямоугольник
             res = new figure_rectangle;
             res->type = eFigure::RECTANGLE;
+        } else if (readLine == "triangle") { // Если вводится прямоугольник
+            res = new figure_triangle;
+            res->type = eFigure::TRIANGLE;
         } else {
             return nullptr; // Произошла ошибка при вводе
         }
@@ -215,5 +218,37 @@ namespace figure_space {
 
     void figure::set_density(double _density) {
         density = _density;
+    }
+
+    void figure_triangle::read(std::ifstream &ifstr) {
+        int _x1, _y1;
+        int _x2, _y2;
+        int _x3, _y3;
+        ifstr >> _x1 >> _y1;
+        ifstr >> _x2 >> _y2;
+        ifstr >> _x3 >> _y3;
+        x1 = _x1; y1 = _y1;
+        x2 = _x2; y2 = _y2;
+        x3 = _x3; y3 = _y3;
+        if(!ifstr.eof()) { // Считаем переход на новую строку
+            ifstr.get();
+        }
+    }
+
+    void figure_triangle::write(std::ofstream &ofstr) {
+        ofstr << "triangle: ";
+        ofstr << "x1 = " << x1 << "; ";
+        ofstr << "y1 = " << y1 << "; ";
+        ofstr << "x2 = " << x2 << "; ";
+        ofstr << "y2 = " << y2 << "; ";
+        ofstr << "x3 = " << x3 << "; ";
+        ofstr << "y3 = " << y3 << ";\n";
+    }
+
+    double figure_triangle::calculate() {
+        double a = (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2);
+        double b = (x1-x3)*(x1-x3) + (y1-y3)*(y1-y3);
+        double c = (x3-x2)*(x3-x2) + (y3-y2)*(y3-y2);
+        return a+b+c;
     }
 }
