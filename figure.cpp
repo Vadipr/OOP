@@ -242,7 +242,8 @@ namespace figure_space {
         ofstr << "x2 = " << x2 << "; ";
         ofstr << "y2 = " << y2 << "; ";
         ofstr << "x3 = " << x3 << "; ";
-        ofstr << "y3 = " << y3 << ";\n";
+        ofstr << "y3 = " << y3 << "; ";
+        ofstr << "density = " << get_density() << ";\n";
     }
 
     double figure_triangle::calculate() {
