@@ -247,9 +247,9 @@ namespace figure_space {
     }
 
     double figure_triangle::calculate() {
-        double a = (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2);
-        double b = (x1-x3)*(x1-x3) + (y1-y3)*(y1-y3);
-        double c = (x3-x2)*(x3-x2) + (y3-y2)*(y3-y2);
+        double a = sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+        double b = sqrt((x1-x3)*(x1-x3) + (y1-y3)*(y1-y3));
+        double c = sqrt((x3-x2)*(x3-x2) + (y3-y2)*(y3-y2));
         return a+b+c;
     }
 }
