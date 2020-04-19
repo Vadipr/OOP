@@ -52,6 +52,7 @@ namespace figure_space {
 
         // sets
         void set_color(Color _color);
+        eFigure type;
     private:
         Color figure_color; // Цвет
     };
@@ -110,6 +111,7 @@ namespace figure_space {
         void read(std::ifstream &ifstr);
         // Вывод в файл
         void write(std::ofstream &ofstr);
+        void writeIgnore(std::ofstream &ofstr, eFigure type);
     private:
         // Начальный элемент
         container_node *begin;

@@ -95,8 +95,10 @@ namespace figure_space {
         readLine = std::string(chars); // Переводим в строку
         if (readLine == "circle") { // Если вводится круг
             res = new figure_circle;
+            res->type = eFigure::CIRCLE;
         } else if (readLine == "rectangle") { // Если вводится прямоугольник
             res = new figure_rectangle;
+            res->type = eFigure::RECTANGLE;
         } else {
             return nullptr; // Произошла ошибка при вводе
         }
@@ -122,19 +124,36 @@ namespace figure_space {
         end = begin = nullptr;
     }
 
-
-
     void figure_container::sort() {
-        for(container_node *it = begin; (it) && (it->next); it = it->next) {
+        for (container_node *it = begin; (it) && (it->next); it = it->next) {
             for (container_node *jt = it->next; jt; jt = jt->next) {
-                if(figure::comparator(it->_f, jt->_f)) {
-                    figure* temp = it->_f;
+                if (figure::comparator(it->_f, jt->_f)) {
+                    figure *temp = it->_f;
                     it->_f = jt->_f;
                     jt->_f = temp;
                 }
                 std::cout << it->_f->calculate() << " vs " << jt->_f->calculate() << std::endl;
             }
         }
+    }
+
+    void figure_container::writeIgnore(std::ofstream &ofstr, eFigure type) {
+        ofstr << "Ignoring type: " << type << std::endl;
+        int index = 0;
+        if(begin == nullptr) { // Если пустой контейнер
+            ofstr << "Empty container. " << std::endl;
+            return;
+        }
+        for(container_node *it = begin; it != nullptr; it = it->next) {
+            if(type == it->_f->type) {
+                continue;
+            }
+            index++;
+            // Вывод номера и цвета
+            ofstr << index << ". ";
+            it->_f->write(ofstr);
+        }
+        std::cout << "Successfully printed to file." << std::endl;
     }
 
     void figure_circle::read(std::ifstream &ifstr) {

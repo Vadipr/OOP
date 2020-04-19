@@ -19,6 +19,8 @@ int main(int argc, char* argv[]) {
     c.sort();
     ofst << "Sorted:" << std::endl;
     c.write(ofst);
+    c.writeIgnore(ofst, eFigure::CIRCLE);
+    c.writeIgnore(ofst, eFigure::RECTANGLE);
     cout << "Program ended"<< endl;
     return 0;
 }
