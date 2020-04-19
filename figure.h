@@ -8,7 +8,7 @@
 
 namespace figure_space {
 
-    const double PI = 3.1516;
+    const double PI = 3.1415;
 
     // Параметры, общие для всех альтернатив:
     // Цвет фигуры (перечислимый тип)
