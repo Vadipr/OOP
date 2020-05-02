@@ -1,9 +1,15 @@
+#include <gtest/gtest.h>
 #include "figure.h"
 using namespace std;
 using namespace figure_space;
 
 int main(int argc, char* argv[]) {
     // Если некорректно введены аргументы
+    if(argc == 2) {
+        testing::InitGoogleTest();
+        RUN_ALL_TESTS();
+        return 0;
+    } else
     if(argc !=3) {
         cout << "incorrect command line! " << endl
              << "Waited: command in_file out_file"

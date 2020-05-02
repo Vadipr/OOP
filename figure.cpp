@@ -165,6 +165,18 @@ namespace figure_space {
         std::cout << "Successfully printed to file." << std::endl;
     }
 
+    container_node *figure_container::get_begin() {
+        return begin;
+    }
+
+    int figure_container::get_size() {
+        int i = 0;
+        for (container_node *jt = begin; jt; jt = jt->next) {
+            i++;
+        }
+        return i;
+    }
+
     void figure_circle::read(std::ifstream &ifstr) {
         int _center_x, _center_y;
         double _radius;
@@ -247,9 +259,9 @@ namespace figure_space {
     }
 
     double figure_triangle::calculate() {
-        double a = sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
-        double b = sqrt((x1-x3)*(x1-x3) + (y1-y3)*(y1-y3));
-        double c = sqrt((x3-x2)*(x3-x2) + (y3-y2)*(y3-y2));
+        double a = (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2);
+        double b = (x1-x3)*(x1-x3) + (y1-y3)*(y1-y3);
+        double c = (x3-x2)*(x3-x2) + (y3-y2)*(y3-y2);
         return a+b+c;
     }
 }

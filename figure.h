@@ -68,7 +68,7 @@ namespace figure_space {
         void read(std::ifstream &ifstr) override;
         void write(std::ofstream &ofstr) override;
         double calculate() override;
-    private:
+
         // Координаты центра (целочисленные)
         int center_x;
         int center_y;
@@ -83,7 +83,7 @@ namespace figure_space {
         void read(std::ifstream &ifstr) override;
         void write(std::ofstream &ofstr) override;
         double calculate() override;
-    private:
+
         // Координаты левого верхнего угла (целочисленные)
         int upper_x;
         int upper_y;
@@ -107,7 +107,6 @@ namespace figure_space {
         void write(std::ofstream &ofstr) override;
         double calculate() override;
 
-    private:
         // Три точки, задающие целочисленные координаты вершин
         int x1, y1;
         int x2, y2;
@@ -131,6 +130,8 @@ namespace figure_space {
         // Вывод в файл
         void write(std::ofstream &ofstr);
         void writeIgnore(std::ofstream &ofstr, eFigure type);
+        container_node *get_begin();
+        int get_size();
     private:
         // Начальный элемент
         container_node *begin;
