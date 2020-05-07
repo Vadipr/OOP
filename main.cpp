@@ -17,7 +17,15 @@ int main(int argc, char* argv[]) {
         exit(1);
     }
     ifstream ifst(argv[1]);
+    if(!ifst.is_open() || ifst.bad()) {
+        cout << "Can\'t open input file." << endl;
+        return 0;
+    }
     ofstream ofst(argv[2]);
+    if(!ofst.is_open() || ofst.bad()) {
+        cout << "Can\'t open output file." << endl;
+        return 0;
+    }
     cout << "Program started"<< endl;
     figure_container c{};
     c.read(ifst);

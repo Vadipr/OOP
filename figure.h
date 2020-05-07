@@ -8,6 +8,8 @@
 
 namespace figure_space {
 
+    bool readInt(int &buffer, std::ifstream &ifstr);
+
     const double PI = 3.1415;
 
     // Параметры, общие для всех альтернатив:

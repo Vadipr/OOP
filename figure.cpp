@@ -95,6 +95,7 @@ namespace figure_space {
         ifstr.getline(chars, 255);
         // ВВОД ТИПА ФИГУРЫ
         readLine = std::string(chars); // Переводим в строку
+        //std::cout << "!!!" << readLine << std::endl;
         if (readLine == "circle") { // Если вводится круг
             res = new figure_circle;
             res->type = eFigure::CIRCLE;
@@ -107,6 +108,7 @@ namespace figure_space {
         } else {
             return nullptr; // Произошла ошибка при вводе
         }
+
         // ВВОД ЦВЕТА ФИГУРЫ
         ifstr.getline(chars, 255);
         readLine = std::string(chars); // Переводим в строку
@@ -115,6 +117,7 @@ namespace figure_space {
                 res->figure_color = (Color) i; // Сохраняем цвет
                 break;
             } else if (i + 1 == color_count) { // Если цвет не был распознан
+
                 delete res;
                 return nullptr; // Произошла ошибка при вводе
             }
@@ -180,7 +183,20 @@ namespace figure_space {
     void figure_circle::read(std::ifstream &ifstr) {
         int _center_x, _center_y;
         double _radius;
-        ifstr >> _center_x >> _center_y >> _radius;
+        if(ifstr.eof()) {
+            return;
+        }
+
+        if(!readInt(_center_x, ifstr)) return;
+        if(ifstr.eof()) {
+            return;
+        }
+        if(!readInt(_center_y, ifstr)) return;
+        if(ifstr.eof()) {
+            return;
+        }
+        ifstr >> _radius;
+
         center_x = _center_x;
         center_y = _center_y;
         radius = _radius;
@@ -196,14 +212,30 @@ namespace figure_space {
     void figure_rectangle::read(std::ifstream &ifstr) {
         int _bottom_x, _bottom_y;
         int _upper_x, _upper_y;
-        ifstr >> _bottom_x >> _bottom_y >> _upper_x >> _upper_y;
+
+        if(ifstr.eof()) {
+            return;
+        }
+        if(!readInt(_bottom_x, ifstr)) return;
+        if(ifstr.eof()) {
+            return;
+        }
+        if(!readInt(_bottom_y, ifstr)) return;
+        if(ifstr.eof()) {
+            return;
+        }
+        if(!readInt(_upper_x, ifstr)) return;
+        if(ifstr.eof()) {
+            return;
+        }
+        if(!readInt(_upper_y, ifstr)) return;
+        if(!ifstr.eof()) { // Считаем переход на новую строку
+            ifstr.get();
+        }
         bottom_x = _bottom_x;
         bottom_y = _bottom_y;
         upper_x = _upper_x;
         upper_y = _upper_y;
-        if(!ifstr.eof()) { // Считаем переход на новую строку
-            ifstr.get();
-        }
     }
 
     double figure_rectangle::calculate() {
@@ -233,15 +265,31 @@ namespace figure_space {
     }
 
     void figure_triangle::read(std::ifstream &ifstr) {
-        int _x1, _y1;
-        int _x2, _y2;
-        int _x3, _y3;
-        ifstr >> _x1 >> _y1;
-        ifstr >> _x2 >> _y2;
-        ifstr >> _x3 >> _y3;
-        x1 = _x1; y1 = _y1;
-        x2 = _x2; y2 = _y2;
-        x3 = _x3; y3 = _y3;
+        if(ifstr.eof()) {
+            return;
+        }
+        if(!readInt(x1, ifstr)) return;
+        if(ifstr.eof()) {
+            return;
+        }
+        if(!readInt(y1, ifstr)) return;
+        if(ifstr.eof()) {
+            return;
+        }
+        if(!readInt(x2, ifstr)) return;
+        if(ifstr.eof()) {
+            return;
+        }
+        if(!readInt(y2, ifstr)) return;
+        if(ifstr.eof()) {
+            return;
+        }
+        if(!readInt(x3, ifstr)) return;
+        if(ifstr.eof()) {
+            return;
+        }
+        if(!readInt(y3, ifstr)) return;
+
         if(!ifstr.eof()) { // Считаем переход на новую строку
             ifstr.get();
         }
@@ -263,5 +311,17 @@ namespace figure_space {
         double b = (x1-x3)*(x1-x3) + (y1-y3)*(y1-y3);
         double c = (x3-x2)*(x3-x2) + (y3-y2)*(y3-y2);
         return a+b+c;
+    }
+
+    bool readInt(int &buffer, std::ifstream &ifstr) {
+        char str[255];
+        ifstr >> str;
+        for(int i = 0; i < 255; i++) {
+            if(str[i] == 0) break;
+            bool fail = str[i] < '0' || str[i] > '9';
+            if(fail) return false;
+        }
+        buffer = atoi(str);
+        return true;
     }
 }
