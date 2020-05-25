@@ -30,9 +30,9 @@ int main(int argc, char* argv[]) {
     figure_container c{};
     c.read(ifst);
     c.write(ofst);
-    c.multiM(ofst);
-    c.writeIgnore(ofst, eFigure::CIRCLE);
-    c.writeIgnore(ofst, eFigure::RECTANGLE);
+    c.multi_m(ofst);
+    c.write_ignore(ofst, e_figure::CIRCLE);
+    c.write_ignore(ofst, e_figure::RECTANGLE);
     cout << "Program ended"<< endl;
     return 0;
 }

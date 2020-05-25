@@ -15,7 +15,7 @@ namespace figure_space {
     // Параметры, общие для всех альтернатив:
     // Цвет фигуры (перечислимый тип)
     // {красный, оранжевый, желтый, зеленый, голубой, синий, фиолетовый}
-    enum Color {
+    enum color {
         RED = 0,
         ORANGE = 1,
         YELLOW = 2,
@@ -27,7 +27,7 @@ namespace figure_space {
 
 
     // Перечисляемый тип, определяющий тип фигуры
-    enum eFigure {
+    enum e_figure {
         CIRCLE = 1,
         RECTANGLE = 2,
         TRIANGLE = 3
@@ -51,22 +51,22 @@ namespace figure_space {
         virtual double calculate() = 0;
 
 
-        virtual void multiMethod(figure *other, std::ofstream &ofst) = 0;
-        virtual void multiCycle(std::ofstream &ofst) = 0;
-        virtual void multiRect(std::ofstream &ofst) = 0;
-        virtual void multiTriangle(std::ofstream &ofst) = 0;
+        virtual void multi_method(figure *other, std::ofstream &ofst) = 0;
+        virtual void multi_cycle(std::ofstream &ofst) = 0;
+        virtual void multi_rect(std::ofstream &ofst) = 0;
+        virtual void multi_triangle(std::ofstream &ofst) = 0;
 
         // gets
-        Color get_color();
+        color get_color();
         double get_density();
 
         // sets
-        void set_color(Color _color);
-        eFigure type;
+        void set_color(color _color);
+        e_figure type;
         void set_density(double _density);
     private:
         double density; // Плотность материала, из которого вырезаются эти геометрические фигуры (действительное число)
-        Color figure_color; // Цвет
+        color figure_color; // Цвет
     };
 
     // Структура, описывающая круг
@@ -77,10 +77,10 @@ namespace figure_space {
         void write(std::ofstream &ofstr) override;
         double calculate() override;
 
-        void multiMethod(figure *other, std::ofstream &ofst);
-        void multiCycle(std::ofstream &ofst);
-        void multiRect(std::ofstream &ofst);
-        void multiTriangle(std::ofstream &ofst);
+        void multi_method(figure *other, std::ofstream &ofst);
+        void multi_cycle(std::ofstream &ofst);
+        void multi_rect(std::ofstream &ofst);
+        void multi_triangle(std::ofstream &ofst);
         // Координаты центра (целочисленные)
         int center_x;
         int center_y;
@@ -96,10 +96,10 @@ namespace figure_space {
         void write(std::ofstream &ofstr) override;
         double calculate() override;
 
-        void multiMethod(figure *other, std::ofstream &ofst);
-        void multiCycle(std::ofstream &ofst);
-        void multiRect(std::ofstream &ofst);
-        void multiTriangle(std::ofstream &ofst);
+        void multi_method(figure *other, std::ofstream &ofst);
+        void multi_cycle(std::ofstream &ofst);
+        void multi_rect(std::ofstream &ofst);
+        void multi_triangle(std::ofstream &ofst);
         // Координаты левого верхнего угла (целочисленные)
         int upper_x;
         int upper_y;
@@ -123,10 +123,10 @@ namespace figure_space {
         void write(std::ofstream &ofstr) override;
         double calculate() override;
 
-        void multiMethod(figure *other, std::ofstream &ofst);
-        void multiCycle(std::ofstream &ofst);
-        void multiRect(std::ofstream &ofst);
-        void multiTriangle(std::ofstream &ofst);
+        void multi_method(figure *other, std::ofstream &ofst);
+        void multi_cycle(std::ofstream &ofst);
+        void multi_rect(std::ofstream &ofst);
+        void multi_triangle(std::ofstream &ofst);
         // Три точки, задающие целочисленные координаты вершин
         int x1, y1;
         int x2, y2;
@@ -149,11 +149,11 @@ namespace figure_space {
         void read(std::ifstream &ifstr);
         // Вывод в файл
         void write(std::ofstream &ofstr);
-        void writeIgnore(std::ofstream &ofstr, eFigure type);
+        void write_ignore(std::ofstream &ofstr, e_figure type);
         container_node *get_begin();
         int get_size();
 
-        void multiM(std::ofstream &ofst);
+        void multi_m(std::ofstream &ofst);
     private:
         // Начальный элемент
         container_node *begin;

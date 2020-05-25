@@ -98,13 +98,13 @@ namespace figure_space {
         //std::cout << "!!!" << readLine << std::endl;
         if (readLine == "circle") { // Если вводится круг
             res = new figure_circle;
-            res->type = eFigure::CIRCLE;
+            res->type = e_figure::CIRCLE;
         } else if (readLine == "rectangle") { // Если вводится прямоугольник
             res = new figure_rectangle;
-            res->type = eFigure::RECTANGLE;
+            res->type = e_figure::RECTANGLE;
         } else if (readLine == "triangle") { // Если вводится прямоугольник
             res = new figure_triangle;
-            res->type = eFigure::TRIANGLE;
+            res->type = e_figure::TRIANGLE;
         } else {
             return nullptr; // Произошла ошибка при вводе
         }
@@ -114,7 +114,7 @@ namespace figure_space {
         readLine = std::string(chars); // Переводим в строку
         for (int i = 0; i < color_count; i++) {
             if (readLine == color_strings[i]) { // Если узнали, что за цвет
-                res->figure_color = (Color) i; // Сохраняем цвет
+                res->figure_color = (color) i; // Сохраняем цвет
                 break;
             } else if (i + 1 == color_count) { // Если цвет не был распознан
 
@@ -149,7 +149,7 @@ namespace figure_space {
         }
     }
 
-    void figure_container::writeIgnore(std::ofstream &ofstr, eFigure type) {
+    void figure_container::write_ignore(std::ofstream &ofstr, e_figure type) {
         ofstr << "Ignoring type: " << type << std::endl;
         int index = 0;
         if(begin == nullptr) { // Если пустой контейнер
@@ -180,11 +180,11 @@ namespace figure_space {
         return i;
     }
 
-    void figure_container::multiM(std::ofstream &ofst) {
+    void figure_container::multi_m(std::ofstream &ofst) {
         ofst << "Writing multimethod" << std::endl;
         for (container_node *it = begin; (it) && (it->next); it = it->next) {
             for (container_node *jt = begin->next; jt; jt = jt->next) {
-                it->_f->multiMethod(jt->_f, ofst);
+                it->_f->multi_method(jt->_f, ofst);
                 it->_f->write(ofst);
                 jt->_f->write(ofst);
             }
@@ -220,19 +220,19 @@ namespace figure_space {
         return 2*PI*radius;
     }
 
-    void figure_circle::multiMethod(figure *other, std::ofstream &ofst) {
-        other->multiCycle(ofst);
+    void figure_circle::multi_method(figure *other, std::ofstream &ofst) {
+        other->multi_cycle(ofst);
     }
 
-    void figure_circle::multiCycle(std::ofstream &ofst) {
+    void figure_circle::multi_cycle(std::ofstream &ofst) {
         ofst << ": CYCLE and CYCLE" << std::endl;
     }
 
-    void figure_circle::multiRect(std::ofstream &ofst) {
+    void figure_circle::multi_rect(std::ofstream &ofst) {
         ofst << ": CYCLE and RECTANGLE" << std::endl;
     }
 
-    void figure_circle::multiTriangle(std::ofstream &ofst) {
+    void figure_circle::multi_triangle(std::ofstream &ofst) {
         ofst << ": CYCLE and TRIANGLE" << std::endl;
     }
 
@@ -271,27 +271,27 @@ namespace figure_space {
         return std::abs(2*width) + std::abs(2*height);
     }
 
-    void figure_rectangle::multiMethod(figure *other, std::ofstream &ofst) {
-        other->multiRect(ofst);
+    void figure_rectangle::multi_method(figure *other, std::ofstream &ofst) {
+        other->multi_rect(ofst);
     }
 
-    void figure_rectangle::multiCycle(std::ofstream &ofst) {
+    void figure_rectangle::multi_cycle(std::ofstream &ofst) {
         ofst << ": RECTANGLE and CYCLE" << std::endl;
     }
 
-    void figure_rectangle::multiRect(std::ofstream &ofst) {
+    void figure_rectangle::multi_rect(std::ofstream &ofst) {
         ofst << ": RECTANGLE and RECTANGLE" << std::endl;
     }
 
-    void figure_rectangle::multiTriangle(std::ofstream &ofst) {
+    void figure_rectangle::multi_triangle(std::ofstream &ofst) {
         ofst << ": RECTANGLE and TRIANGLE" << std::endl;
     }
 
-    Color figure::get_color() {
+    color figure::get_color() {
         return figure_color;
     }
 
-    void figure::set_color(Color _color) {
+    void figure::set_color(color _color) {
         figure_color = _color;
     }
 
@@ -356,20 +356,20 @@ namespace figure_space {
         return a+b+c;
     }
 
-    void figure_triangle::multiTriangle(std::ofstream &ofst) {
+    void figure_triangle::multi_triangle(std::ofstream &ofst) {
         ofst << ": TRIANGLE and TRIANGLE" << std::endl;
     }
 
-    void figure_triangle::multiRect(std::ofstream &ofst) {
+    void figure_triangle::multi_rect(std::ofstream &ofst) {
         ofst << ": TRIANGLE and RECTANGLE" << std::endl;
     }
 
-    void figure_triangle::multiCycle(std::ofstream &ofst) {
+    void figure_triangle::multi_cycle(std::ofstream &ofst) {
         ofst << ": TRIANGLE and CYCLE" << std::endl;
     }
 
-    void figure_triangle::multiMethod(figure *other, std::ofstream &ofst) {
-        other->multiTriangle(ofst);
+    void figure_triangle::multi_method(figure *other, std::ofstream &ofst) {
+        other->multi_triangle(ofst);
     }
 
     bool readInt(int &buffer, std::ifstream &ifstr) {
