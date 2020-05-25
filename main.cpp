@@ -16,6 +16,7 @@ int main(int argc, char* argv[]) {
     figure_container c{};
     c.read(ifst);
     c.write(ofst);
+    c.multiM(ofst);
     cout << "Program ended"<< endl;
     return 0;
 }

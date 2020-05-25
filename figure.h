@@ -35,6 +35,9 @@ namespace figure_space {
         // Считывает один объект figure и возвращает указатель на него
         static figure *read_one(std::ifstream &ifstr);
 
+        virtual void multiMethod(figure *other, std::ofstream &ofst) = 0;
+        virtual void multiCycle(std::ofstream &ofst) = 0;
+        virtual void multiRect(std::ofstream &ofst) = 0;
         // Виртуальный метод "virtual" - требует от потомков переопределения этого метода
         // Чисто виртуальный "pure virtual" (= 0) - помимо необходимости переопределения не может быть определен в предке
         // Считывает уникальные свойства в объект
@@ -59,6 +62,9 @@ namespace figure_space {
     public:
         // Переопределяем методы предка
         void read(std::ifstream &ifstr) override;
+        void multiMethod(figure *other, std::ofstream &ofst);
+        void multiCycle(std::ofstream &ofst);
+        void multiRect(std::ofstream &ofst);
         void write(std::ofstream &ofstr) override;
     private:
         // Координаты центра (целочисленные)
@@ -74,6 +80,9 @@ namespace figure_space {
         // Переопределяем методы предка
         void read(std::ifstream &ifstr) override;
         void write(std::ofstream &ofstr) override;
+        void multiMethod(figure *other, std::ofstream &ofst);
+        void multiCycle(std::ofstream &ofst);
+        void multiRect(std::ofstream &ofst);
     private:
         // Координаты левого верхнего угла (целочисленные)
         int upper_x;
@@ -89,6 +98,7 @@ namespace figure_space {
     public:
         // Конструктор контейнера
         figure_container();
+        void multiM(std::ofstream &ofst);
         // Очистка контейнер
         void clear();
         // Добавление элемента в контейнер

@@ -159,4 +159,40 @@ namespace figure_space {
     void figure::set_color(Color _color) {
         figure_color = _color;
     }
+
+    void figure_container::multiM(std::ofstream &ofst) {
+        ofst << "Writing multimethod" << std::endl;
+        for (figure *it = begin; (it) && (it->get_next()); it = it->get_next()) {
+            for (figure *jt = begin->get_next(); jt; jt = jt->get_next()) {
+                it->multiMethod(jt, ofst);
+                it->write(ofst);
+                jt->write(ofst);
+            }
+        }
+    }
+
+    void figure_circle::multiMethod(figure *other, std::ofstream &ofst) {
+        other->multiCycle(ofst);
+    }
+
+    void figure_circle::multiCycle(std::ofstream &ofst) {
+        ofst << ": CYCLE and CYCLE" << std::endl;
+    }
+
+    void figure_circle::multiRect(std::ofstream &ofst) {
+        ofst << ": CYCLE and RECTANGLE" << std::endl;
+    }
+
+    void figure_rectangle::multiMethod(figure *other, std::ofstream &ofst) {
+        other->multiRect(ofst);
+    }
+
+    void figure_rectangle::multiCycle(std::ofstream &ofst) {
+        ofst << ": RECTANGLE and CYCLE" << std::endl;
+    }
+
+    void figure_rectangle::multiRect(std::ofstream &ofst) {
+        ofst << ": RECTANGLE and RECTANGLE" << std::endl;
+    }
+
 }

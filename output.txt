@@ -1,4 +1,32 @@
 1. red circle: x0 = 1; y0 = 2; radius = 4.5;
 2. blue rectangle: x1 = 2; y1 = 5; x2 = 6; y2 = 3;
 3. yellow circle: x0 = 2; y0 = 1; radius = 0.1;
-4. purple circle: x0 = 0; y0 = 0; radius = -0.5;
+4. purple circle: x0 = 0; y0 = 0; radius = 0.5;
+Writing multimethod
+: RECTANGLE and CYCLE
+red circle: x0 = 1; y0 = 2; radius = 4.5;
+blue rectangle: x1 = 2; y1 = 5; x2 = 6; y2 = 3;
+: CYCLE and CYCLE
+red circle: x0 = 1; y0 = 2; radius = 4.5;
+yellow circle: x0 = 2; y0 = 1; radius = 0.1;
+: CYCLE and CYCLE
+red circle: x0 = 1; y0 = 2; radius = 4.5;
+purple circle: x0 = 0; y0 = 0; radius = 0.5;
+: RECTANGLE and RECTANGLE
+blue rectangle: x1 = 2; y1 = 5; x2 = 6; y2 = 3;
+blue rectangle: x1 = 2; y1 = 5; x2 = 6; y2 = 3;
+: CYCLE and RECTANGLE
+blue rectangle: x1 = 2; y1 = 5; x2 = 6; y2 = 3;
+yellow circle: x0 = 2; y0 = 1; radius = 0.1;
+: CYCLE and RECTANGLE
+blue rectangle: x1 = 2; y1 = 5; x2 = 6; y2 = 3;
+purple circle: x0 = 0; y0 = 0; radius = 0.5;
+: RECTANGLE and CYCLE
+yellow circle: x0 = 2; y0 = 1; radius = 0.1;
+blue rectangle: x1 = 2; y1 = 5; x2 = 6; y2 = 3;
+: CYCLE and CYCLE
+yellow circle: x0 = 2; y0 = 1; radius = 0.1;
+yellow circle: x0 = 2; y0 = 1; radius = 0.1;
+: CYCLE and CYCLE
+yellow circle: x0 = 2; y0 = 1; radius = 0.1;
+purple circle: x0 = 0; y0 = 0; radius = 0.5;
