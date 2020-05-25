@@ -30,9 +30,7 @@ int main(int argc, char* argv[]) {
     figure_container c{};
     c.read(ifst);
     c.write(ofst);
-    c.sort();
-    ofst << "Sorted:" << std::endl;
-    c.write(ofst);
+    c.multiM(ofst);
     c.writeIgnore(ofst, eFigure::CIRCLE);
     c.writeIgnore(ofst, eFigure::RECTANGLE);
     cout << "Program ended"<< endl;

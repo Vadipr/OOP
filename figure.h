@@ -50,6 +50,12 @@ namespace figure_space {
         // Вычисление периметра для каждой из фигур (действительное число)
         virtual double calculate() = 0;
 
+
+        virtual void multiMethod(figure *other, std::ofstream &ofst) = 0;
+        virtual void multiCycle(std::ofstream &ofst) = 0;
+        virtual void multiRect(std::ofstream &ofst) = 0;
+        virtual void multiTriangle(std::ofstream &ofst) = 0;
+
         // gets
         Color get_color();
         double get_density();
@@ -71,6 +77,10 @@ namespace figure_space {
         void write(std::ofstream &ofstr) override;
         double calculate() override;
 
+        void multiMethod(figure *other, std::ofstream &ofst);
+        void multiCycle(std::ofstream &ofst);
+        void multiRect(std::ofstream &ofst);
+        void multiTriangle(std::ofstream &ofst);
         // Координаты центра (целочисленные)
         int center_x;
         int center_y;
@@ -86,6 +96,10 @@ namespace figure_space {
         void write(std::ofstream &ofstr) override;
         double calculate() override;
 
+        void multiMethod(figure *other, std::ofstream &ofst);
+        void multiCycle(std::ofstream &ofst);
+        void multiRect(std::ofstream &ofst);
+        void multiTriangle(std::ofstream &ofst);
         // Координаты левого верхнего угла (целочисленные)
         int upper_x;
         int upper_y;
@@ -109,6 +123,10 @@ namespace figure_space {
         void write(std::ofstream &ofstr) override;
         double calculate() override;
 
+        void multiMethod(figure *other, std::ofstream &ofst);
+        void multiCycle(std::ofstream &ofst);
+        void multiRect(std::ofstream &ofst);
+        void multiTriangle(std::ofstream &ofst);
         // Три точки, задающие целочисленные координаты вершин
         int x1, y1;
         int x2, y2;
@@ -134,6 +152,8 @@ namespace figure_space {
         void writeIgnore(std::ofstream &ofstr, eFigure type);
         container_node *get_begin();
         int get_size();
+
+        void multiM(std::ofstream &ofst);
     private:
         // Начальный элемент
         container_node *begin;

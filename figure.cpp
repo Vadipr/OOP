@@ -180,6 +180,17 @@ namespace figure_space {
         return i;
     }
 
+    void figure_container::multiM(std::ofstream &ofst) {
+        ofst << "Writing multimethod" << std::endl;
+        for (container_node *it = begin; (it) && (it->next); it = it->next) {
+            for (container_node *jt = begin->next; jt; jt = jt->next) {
+                it->_f->multiMethod(jt->_f, ofst);
+                it->_f->write(ofst);
+                jt->_f->write(ofst);
+            }
+        }
+    }
+
     void figure_circle::read(std::ifstream &ifstr) {
         int _center_x, _center_y;
         double _radius;
@@ -207,6 +218,22 @@ namespace figure_space {
 
     double figure_circle::calculate() {
         return 2*PI*radius;
+    }
+
+    void figure_circle::multiMethod(figure *other, std::ofstream &ofst) {
+        other->multiCycle(ofst);
+    }
+
+    void figure_circle::multiCycle(std::ofstream &ofst) {
+        ofst << ": CYCLE and CYCLE" << std::endl;
+    }
+
+    void figure_circle::multiRect(std::ofstream &ofst) {
+        ofst << ": CYCLE and RECTANGLE" << std::endl;
+    }
+
+    void figure_circle::multiTriangle(std::ofstream &ofst) {
+        ofst << ": CYCLE and TRIANGLE" << std::endl;
     }
 
     void figure_rectangle::read(std::ifstream &ifstr) {
@@ -242,6 +269,22 @@ namespace figure_space {
         int width = bottom_x - upper_x;
         int height = upper_y - bottom_y;
         return std::abs(2*width) + std::abs(2*height);
+    }
+
+    void figure_rectangle::multiMethod(figure *other, std::ofstream &ofst) {
+        other->multiRect(ofst);
+    }
+
+    void figure_rectangle::multiCycle(std::ofstream &ofst) {
+        ofst << ": RECTANGLE and CYCLE" << std::endl;
+    }
+
+    void figure_rectangle::multiRect(std::ofstream &ofst) {
+        ofst << ": RECTANGLE and RECTANGLE" << std::endl;
+    }
+
+    void figure_rectangle::multiTriangle(std::ofstream &ofst) {
+        ofst << ": RECTANGLE and TRIANGLE" << std::endl;
     }
 
     Color figure::get_color() {
@@ -311,6 +354,22 @@ namespace figure_space {
         double b = (x1-x3)*(x1-x3) + (y1-y3)*(y1-y3);
         double c = (x3-x2)*(x3-x2) + (y3-y2)*(y3-y2);
         return a+b+c;
+    }
+
+    void figure_triangle::multiTriangle(std::ofstream &ofst) {
+        ofst << ": TRIANGLE and TRIANGLE" << std::endl;
+    }
+
+    void figure_triangle::multiRect(std::ofstream &ofst) {
+        ofst << ": TRIANGLE and RECTANGLE" << std::endl;
+    }
+
+    void figure_triangle::multiCycle(std::ofstream &ofst) {
+        ofst << ": TRIANGLE and CYCLE" << std::endl;
+    }
+
+    void figure_triangle::multiMethod(figure *other, std::ofstream &ofst) {
+        other->multiTriangle(ofst);
     }
 
     bool readInt(int &buffer, std::ifstream &ifstr) {
