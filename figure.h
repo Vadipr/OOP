@@ -8,9 +8,9 @@
 
 namespace figure_space {
 
-    bool readInt(int &buffer, std::ifstream &ifstr);
+    bool read_int(int &buffer, std::ifstream &ifstr);
 
-    const double PI = 3.1415;
+    const double pi = 3.1415;
 
     // Параметры, общие для всех альтернатив:
     // Цвет фигуры (перечислимый тип)
@@ -161,7 +161,6 @@ namespace figure_space {
         container_node *end;
     };
 
-    /// Объявление функций:
 }
 
 #endif //PROCEDURAL_FIGURE_H

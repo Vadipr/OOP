@@ -198,11 +198,11 @@ namespace figure_space {
             return;
         }
 
-        if(!readInt(_center_x, ifstr)) return;
+        if(!read_int(_center_x, ifstr)) return;
         if(ifstr.eof()) {
             return;
         }
-        if(!readInt(_center_y, ifstr)) return;
+        if(!read_int(_center_y, ifstr)) return;
         if(ifstr.eof()) {
             return;
         }
@@ -217,7 +217,7 @@ namespace figure_space {
     }
 
     double figure_circle::calculate() {
-        return 2*PI*radius;
+        return 2 * pi * radius;
     }
 
     void figure_circle::multi_method(figure *other, std::ofstream &ofst) {
@@ -243,19 +243,19 @@ namespace figure_space {
         if(ifstr.eof()) {
             return;
         }
-        if(!readInt(_bottom_x, ifstr)) return;
+        if(!read_int(_bottom_x, ifstr)) return;
         if(ifstr.eof()) {
             return;
         }
-        if(!readInt(_bottom_y, ifstr)) return;
+        if(!read_int(_bottom_y, ifstr)) return;
         if(ifstr.eof()) {
             return;
         }
-        if(!readInt(_upper_x, ifstr)) return;
+        if(!read_int(_upper_x, ifstr)) return;
         if(ifstr.eof()) {
             return;
         }
-        if(!readInt(_upper_y, ifstr)) return;
+        if(!read_int(_upper_y, ifstr)) return;
         if(!ifstr.eof()) { // Считаем переход на новую строку
             ifstr.get();
         }
@@ -311,27 +311,27 @@ namespace figure_space {
         if(ifstr.eof()) {
             return;
         }
-        if(!readInt(x1, ifstr)) return;
+        if(!read_int(x1, ifstr)) return;
         if(ifstr.eof()) {
             return;
         }
-        if(!readInt(y1, ifstr)) return;
+        if(!read_int(y1, ifstr)) return;
         if(ifstr.eof()) {
             return;
         }
-        if(!readInt(x2, ifstr)) return;
+        if(!read_int(x2, ifstr)) return;
         if(ifstr.eof()) {
             return;
         }
-        if(!readInt(y2, ifstr)) return;
+        if(!read_int(y2, ifstr)) return;
         if(ifstr.eof()) {
             return;
         }
-        if(!readInt(x3, ifstr)) return;
+        if(!read_int(x3, ifstr)) return;
         if(ifstr.eof()) {
             return;
         }
-        if(!readInt(y3, ifstr)) return;
+        if(!read_int(y3, ifstr)) return;
 
         if(!ifstr.eof()) { // Считаем переход на новую строку
             ifstr.get();
@@ -372,7 +372,7 @@ namespace figure_space {
         other->multi_triangle(ofst);
     }
 
-    bool readInt(int &buffer, std::ifstream &ifstr) {
+    bool read_int(int &buffer, std::ifstream &ifstr) {
         char str[255];
         ifstr >> str;
         for(int i = 0; i < 255; i++) {
