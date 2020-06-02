@@ -44,7 +44,7 @@ namespace figure_space {
         // Виртуальный метод "virtual" - требует от потомков переопределения этого метода
         // Чисто виртуальный "pure virtual" (= 0) - помимо необходимости переопределения не может быть определен в предке
         // Считывает уникальные свойства в объект
-        virtual void read(std::ifstream &ifstr) = 0;
+        virtual bool read(std::ifstream &ifstr) = 0;
         // Выводит уникальные свойства объекта
         virtual void write(std::ofstream &ofstr) = 0;
         // Вычисление периметра для каждой из фигур (действительное число)
@@ -73,7 +73,7 @@ namespace figure_space {
     class figure_circle : public figure {
     public:
         // Переопределяем методы предка
-        void read(std::ifstream &ifstr) override;
+        bool read(std::ifstream &ifstr) override;
         void write(std::ofstream &ofstr) override;
         double calculate() override;
 
@@ -92,7 +92,7 @@ namespace figure_space {
     class figure_rectangle : public figure {
     public:
         // Переопределяем методы предка
-        void read(std::ifstream &ifstr) override;
+        bool read(std::ifstream &ifstr) override;
         void write(std::ofstream &ofstr) override;
         double calculate() override;
 
@@ -119,7 +119,7 @@ namespace figure_space {
     class figure_triangle : public figure {
     public:
         // Переопределяем методы предка
-        void read(std::ifstream &ifstr) override;
+        bool read(std::ifstream &ifstr) override;
         void write(std::ofstream &ofstr) override;
         double calculate() override;
 
