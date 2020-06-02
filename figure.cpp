@@ -52,7 +52,6 @@ namespace figure_space {
     // Выводит уникальные свойства объекта
     void figure_circle::write(std::ofstream &ofstr) {
         // Вывод номера и цвета
-        ofstr << color_strings[get_color()] << " ";
         ofstr << "circle: (" << calculate() << ")" << ": ";
         ofstr << "x0 = " << center_x << "; ";
         ofstr << "y0 = " << center_y << "; ";
@@ -63,7 +62,6 @@ namespace figure_space {
     // Выводит уникальные свойства объекта
     void figure_rectangle::write(std::ofstream &ofstr) {
         // Вывод номера и цвета
-        ofstr << color_strings[get_color()] << " ";
         ofstr << "rectangle (" << calculate() << ")" << ": ";
         ofstr << "x1 = " << bottom_x << "; ";
         ofstr << "y1 = " << bottom_y << "; ";
@@ -127,8 +125,9 @@ namespace figure_space {
         ifstr >> dens;
         res->set_density(dens);
         // ВВОД ОСТАЛЬНЫХ ХАРАКТЕРИСТИК
-        res->read(ifstr);
-        return res;
+        if(res->read(ifstr))
+            return res;
+        else return nullptr;
     }
 
     figure_container::figure_container() {
@@ -191,20 +190,20 @@ namespace figure_space {
         }
     }
 
-    void figure_circle::read(std::ifstream &ifstr) {
+    bool figure_circle::read(std::ifstream &ifstr) {
         int _center_x, _center_y;
         double _radius;
         if(ifstr.eof()) {
-            return;
+            return false;
         }
 
-        if(!read_int(_center_x, ifstr)) return;
+        if(!read_int(_center_x, ifstr)) return false;
         if(ifstr.eof()) {
-            return;
+            return false;
         }
-        if(!read_int(_center_y, ifstr)) return;
+        if(!read_int(_center_y, ifstr)) return false;
         if(ifstr.eof()) {
-            return;
+            return false;
         }
         ifstr >> _radius;
 
@@ -214,6 +213,7 @@ namespace figure_space {
         if(!ifstr.eof()) { // Считаем переход на новую строку
             ifstr.get();
         }
+        return true;
     }
 
     double figure_circle::calculate() {
@@ -236,26 +236,26 @@ namespace figure_space {
         ofst << ": CYCLE and TRIANGLE" << std::endl;
     }
 
-    void figure_rectangle::read(std::ifstream &ifstr) {
+    bool figure_rectangle::read(std::ifstream &ifstr) {
         int _bottom_x, _bottom_y;
         int _upper_x, _upper_y;
 
         if(ifstr.eof()) {
-            return;
+            return false;
         }
-        if(!read_int(_bottom_x, ifstr)) return;
+        if(!read_int(_bottom_x, ifstr)) return false;
         if(ifstr.eof()) {
-            return;
+            return false;
         }
-        if(!read_int(_bottom_y, ifstr)) return;
+        if(!read_int(_bottom_y, ifstr)) return false;
         if(ifstr.eof()) {
-            return;
+            return false;
         }
-        if(!read_int(_upper_x, ifstr)) return;
+        if(!read_int(_upper_x, ifstr)) return false;
         if(ifstr.eof()) {
-            return;
+            return false;
         }
-        if(!read_int(_upper_y, ifstr)) return;
+        if(!read_int(_upper_y, ifstr)) return false;
         if(!ifstr.eof()) { // Считаем переход на новую строку
             ifstr.get();
         }
@@ -263,6 +263,7 @@ namespace figure_space {
         bottom_y = _bottom_y;
         upper_x = _upper_x;
         upper_y = _upper_y;
+        return true;
     }
 
     double figure_rectangle::calculate() {
@@ -307,35 +308,36 @@ namespace figure_space {
         density = _density;
     }
 
-    void figure_triangle::read(std::ifstream &ifstr) {
+    bool figure_triangle::read(std::ifstream &ifstr) {
         if(ifstr.eof()) {
-            return;
+            return false;
         }
-        if(!read_int(x1, ifstr)) return;
+        if(!read_int(x1, ifstr)) return false;
         if(ifstr.eof()) {
-            return;
+            return false;
         }
-        if(!read_int(y1, ifstr)) return;
+        if(!read_int(y1, ifstr)) return false;
         if(ifstr.eof()) {
-            return;
+            return false;
         }
-        if(!read_int(x2, ifstr)) return;
+        if(!read_int(x2, ifstr)) return false;
         if(ifstr.eof()) {
-            return;
+            return false;
         }
-        if(!read_int(y2, ifstr)) return;
+        if(!read_int(y2, ifstr)) return false;
         if(ifstr.eof()) {
-            return;
+            return false;
         }
-        if(!read_int(x3, ifstr)) return;
+        if(!read_int(x3, ifstr)) return false;
         if(ifstr.eof()) {
-            return;
+            return false;
         }
-        if(!read_int(y3, ifstr)) return;
+        if(!read_int(y3, ifstr)) return false;
 
         if(!ifstr.eof()) { // Считаем переход на новую строку
             ifstr.get();
         }
+        return true;
     }
 
     void figure_triangle::write(std::ofstream &ofstr) {
